@@ -29,28 +29,27 @@ class Solver(BaseSolver):
         warnings.filterwarnings('ignore', category=ConvergenceWarning)
 
         self.solver_parameter = dict(
-        lambda_1= self.lmbd / X.shape[0], duality_gap_interval=10000000,
+        lambda_1=self.lmbd / X.shape[0], duality_gap_interval=10000000,
         tol=1e-15, verbose=True, solver=self.solver, max_iter=1000
         )
 
         self.solver_instance = estimators.Classifier(loss='logistic', penalty='l2',
-                                       fit_intercept=False,
-                        **self.solver_parameter)
+                                                     fit_intercept=False, **self.solver_parameter)
 
         self.dataset = "New dataset"
 
     def compute_relative_optimality_gap(self):
-        min_eval=100
-        max_dual=-100
+        min_eval = 100
+        max_dual = -100
         self.solver_instance.optimization_info_ = np.squeeze(self.solver_instance.optimization_info_)
-        if len(self.solver_instance.optimization_info_.shape) > 1 :
-            min_eval=min(min_eval,np.min(self.solver_instance.optimization_info_[1, ]))
-            max_dual=max(max_dual,np.max(self.solver_instance.optimization_info_[2, ]))
-            info = np.array(np.maximum((self.solver_instance.optimization_info_[1, ]-max_dual)/min_eval,1e-9))
+        if len(self.solver_instance.optimization_info_.shape) > 1:
+            min_eval = min(min_eval, np.min(self.solver_instance.optimization_info_[1,]))
+            max_dual = max(max_dual, np.max(self.solver_instance.optimization_info_[2,]))
+            info = np.array(np.maximum((self.solver_instance.optimization_info_[1,]-max_dual)/min_eval,1e-9))
 
         else:
-            min_eval=min(min_eval,np.min(self.solver_instance.optimization_info_[1]))
-            max_dual=max(max_dual,np.max(self.solver_instance.optimization_info_[2]))
+            min_eval = min(min_eval, np.min(self.solver_instance.optimization_info_[1]))
+            max_dual = max(max_dual, np.max(self.solver_instance.optimization_info_[2]))
             info = np.array(np.maximum((self.solver_instance.optimization_info_[1]-max_dual)/min_eval,1e-9))
 
         return info
