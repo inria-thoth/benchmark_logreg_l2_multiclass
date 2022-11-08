@@ -11,7 +11,7 @@ with safe_import_context() as import_ctx:
 
 class Dataset(BaseDataset):
     name = "dino_imagenet"
-    is_sparse = True
+    is_sparse = False
 
     install_cmd = 'conda'
     requirements = ['pip:libsvmdata']
@@ -23,11 +23,13 @@ class Dataset(BaseDataset):
 
         if self.X is None:
             cachedir = os.path.dirname(benchopt.__file__) + os.path.sep + "cache"
-            path_X = download("http://pascal.inrialpes.fr/data2/mairal/data/feat_IMNET_train.npy", os.path.join(cachedir, "feat_IMNET_train.npy"))
-            path_y = download("http://pascal.inrialpes.fr/data2/mairal/data/lab_IMNET_train.npy", os.path.join(cachedir, "lab_IMNET_train.npy"))
+            x_url = "http://pascal.inrialpes.fr/data2/mairal/data/feat_IMNET_train.npy"
+            y_url = "http://pascal.inrialpes.fr/data2/mairal/data/lab_IMNET_train.npy"
+            path_X = download(x_url, os.path.join(cachedir, "feat_IMNET_train.npy"))
+            path_y = download(y_url, os.path.join(cachedir, "lab_IMNET_train.npy"))
             self.X = np.load(os.path.join(path_X), allow_pickle=True)
             self.y = np.load(os.path.join(path_y), allow_pickle=True)
-            self.y=np.squeeze(self.y)
+            self.y = np.squeeze(self.y)
 
         data = dict(X=self.X, y=self.y)
         return data
