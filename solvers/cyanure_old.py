@@ -10,7 +10,7 @@ class Solver(BaseSolver):
     name = 'cyanure_old'
 
     install_cmd = 'conda'
-    requirements = ['mkl', 'pip:cyanure-mkl']
+    requirements = ['mkl', 'pip:cyanure-mkl', 'pip:scikit-learn', 'pip:scipy']
 
     parameters = {
         'solver': ['catalyst-miso', 'qning-miso',
