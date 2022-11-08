@@ -13,7 +13,8 @@ class Solver(BaseSolver):
     requirements = ['mkl', 'pip:cyanure-mkl']
 
     parameters = {
-        'solver': ['catalyst-miso', 'qning-miso', 'qning-ista',  'auto',  'acc-svrg'],
+        'solver': ['catalyst-miso', 'qning-miso',
+                  'qning-ista',  'auto',  'acc-svrg'],
     }
 
     def set_objective(self, X, y, lmbd):

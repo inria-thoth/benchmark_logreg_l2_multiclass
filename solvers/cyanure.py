@@ -4,11 +4,10 @@ from benchopt import BaseSolver, safe_import_context
 
 
 with safe_import_context() as import_ctx:
-    import sys
     import scipy
     import numpy as np
     from cyanure import estimators
-    from cyanure.data_processing import preprocess
+
 
 # 'solver': ['catalyst-miso', 'qning-miso', 'qning-ista',  'auto',  'acc-svrg']
 class Solver(BaseSolver):
@@ -20,6 +19,7 @@ class Solver(BaseSolver):
     parameters = {
         'solver': ['catalyst-miso', 'qning-miso', 'qning-ista',  'auto',  'acc-svrg']
     }
+
     def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbd = X, y, lmbd
         if (scipy.sparse.issparse(self.X) and
@@ -38,16 +38,16 @@ class Solver(BaseSolver):
                         **self.solver_parameter)
 
         self.dataset = "New dataset"
-       
+
     def compute_relative_optimality_gap(self):
         min_eval=100
         max_dual=-100
         self.solver_instance.optimization_info_ = np.squeeze(self.solver_instance.optimization_info_)
         if len(self.solver_instance.optimization_info_.shape) > 1 :
-            min_eval=min(min_eval,np.min(self.solver_instance.optimization_info_[1,]))
-            max_dual=max(max_dual,np.max(self.solver_instance.optimization_info_[2,]))
-            info = np.array(np.maximum((self.solver_instance.optimization_info_[1,]-max_dual)/min_eval,1e-9))
-        
+            min_eval=min(min_eval,np.min(self.solver_instance.optimization_info_[1, ]))
+            max_dual=max(max_dual,np.max(self.solver_instance.optimization_info_[2, ]))
+            info = np.array(np.maximum((self.solver_instance.optimization_info_[1, ]-max_dual)/min_eval,1e-9))
+
         else:
             min_eval=min(min_eval,np.min(self.solver_instance.optimization_info_[1]))
             max_dual=max(max_dual,np.max(self.solver_instance.optimization_info_[2]))
