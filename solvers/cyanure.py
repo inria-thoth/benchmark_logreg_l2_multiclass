@@ -44,7 +44,8 @@ class Solver(BaseSolver):
     def compute_relative_optimality_gap(self):
         min_eval = 100
         max_dual = -100
-        self.solver_instance.optimization_info_ = np.squeeze(self.solver_instance.optimization_info_)
+        self.solver_instance.optimization_info_ = np.squeeze(
+            self.solver_instance.optimization_info_)
         if len(self.solver_instance.optimization_info_.shape) > 1:
             primal_array = self.solver_instance.optimization_info_[1, ]
             min_optim = np.min(primal_array)
