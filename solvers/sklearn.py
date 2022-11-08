@@ -15,7 +15,7 @@ class Solver(BaseSolver):
     name = 'sklearn'
 
     install_cmd = 'conda'
-    requirements = ['scikit-learn']
+    requirements = ['pip:scikit-learn']
 
     parameters = {
         'solver': [
