@@ -17,7 +17,8 @@ class Solver(BaseSolver):
     requirements = ['cyanure']
 
     parameters = {
-        'solver': ['catalyst-miso', 'qning-miso', 'qning-ista',  'auto',  'acc-svrg']
+        'solver': ['catalyst-miso', 'qning-miso',
+                   'qning-ista',  'auto',  'acc-svrg']
     }
 
     def set_objective(self, X, y, lmbd):
@@ -33,8 +34,10 @@ class Solver(BaseSolver):
                                      tol=1e-15, verbose=True,
                                      solver=self.solver, max_iter=1000)
 
-        self.solver_instance = estimators.Classifier(loss='logistic', penalty='l2',
-                                                     fit_intercept=False, **self.solver_parameter)
+        self.solver_instance = estimators.Classifier(loss='logistic',
+                                                     penalty='l2',
+                                                     fit_intercept=False,
+                                                     **self.solver_parameter)
 
         self.dataset = "New dataset"
 
@@ -43,18 +46,20 @@ class Solver(BaseSolver):
         max_dual = -100
         self.solver_instance.optimization_info_ = np.squeeze(self.solver_instance.optimization_info_)
         if len(self.solver_instance.optimization_info_.shape) > 1:
-            min_optim = np.min(self.solver_instance.optimization_info_[1, ])
+            primal_array = self.solver_instance.optimization_info_[1, ]
+            min_optim = np.min(primal_array)
             max_optim = np.max(self.solver_instance.optimization_info_[2, ])
             min_eval = min(min_eval, min_optim)
             max_dual = max(max_dual, max_optim)
-            info = np.array(np.maximum((self.solver_instance.optimization_info_[1, ]-max_dual)/min_eval, 1e-9))
+            info = np.array(np.maximum((primal_array-max_dual)/min_eval, 1e-9))
 
         else:
-            min_optim = np.min(self.solver_instance.optimization_info_[1, ])
-            max_optim = np.max(self.solver_instance.optimization_info_[2, ])
+            primal_array = self.solver_instance.optimization_info_[1]
+            min_optim = np.min(primal_array)
+            max_optim = np.max(self.solver_instance.optimization_info_[2])
             min_eval = min(min_eval, min_optim)
             max_dual = max(max_dual, max_optim)
-            info = np.array(np.maximum((self.solver_instance.optimization_info_[1]-max_dual)/min_eval, 1e-9))
+            info = np.array(np.maximum((primal_array-max_dual)/min_eval, 1e-9))
 
         return info
 
