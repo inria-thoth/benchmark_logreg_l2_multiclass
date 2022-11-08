@@ -43,14 +43,18 @@ class Solver(BaseSolver):
         max_dual = -100
         self.solver_instance.optimization_info_ = np.squeeze(self.solver_instance.optimization_info_)
         if len(self.solver_instance.optimization_info_.shape) > 1:
-            min_eval = min(min_eval, np.min(self.solver_instance.optimization_info_[1,]))
-            max_dual = max(max_dual, np.max(self.solver_instance.optimization_info_[2,]))
-            info = np.array(np.maximum((self.solver_instance.optimization_info_[1,]-max_dual)/min_eval,1e-9))
+            min_optim = np.min(self.solver_instance.optimization_info_[1, ])
+            max_optim = np.max(self.solver_instance.optimization_info_[2, ])
+            min_eval = min(min_eval, min_optim)
+            max_dual = max(max_dual, max_optim)
+            info = np.array(np.maximum((self.solver_instance.optimization_info_[1, ]-max_dual)/min_eval, 1e-9))
 
         else:
-            min_eval = min(min_eval, np.min(self.solver_instance.optimization_info_[1]))
-            max_dual = max(max_dual, np.max(self.solver_instance.optimization_info_[2]))
-            info = np.array(np.maximum((self.solver_instance.optimization_info_[1]-max_dual)/min_eval,1e-9))
+            min_optim = np.min(self.solver_instance.optimization_info_[1, ])
+            max_optim = np.max(self.solver_instance.optimization_info_[2, ])
+            min_eval = min(min_eval, min_optim)
+            max_dual = max(max_dual, max_optim)
+            info = np.array(np.maximum((self.solver_instance.optimization_info_[1]-max_dual)/min_eval, 1e-9))
 
         return info
 
