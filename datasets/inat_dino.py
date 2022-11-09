@@ -11,7 +11,7 @@ with safe_import_context() as import_ctx:
 
 class Dataset(BaseDataset):
     name = "dino_inat"
-    is_sparse = True
+    is_sparse = False
 
     install_cmd = 'conda'
     requirements = ['pip:libsvmdata']
