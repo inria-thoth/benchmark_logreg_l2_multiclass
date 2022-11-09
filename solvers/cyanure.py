@@ -6,7 +6,6 @@ from benchopt import BaseSolver, safe_import_context
 with safe_import_context() as import_ctx:
     import scipy
     import numpy as np
-    import sklearn
     from cyanure import estimators
 
 
@@ -15,7 +14,7 @@ class Solver(BaseSolver):
     name = 'cyanure_norm'
 
     install_cmd = 'conda'
-    requirements = ['cyanure', 'pip:scikit-learn', 'pip:scipy']
+    requirements = ['pip:scikit-learn', 'pip:scipy', 'cyanure']
 
     parameters = {
         'solver': ['catalyst-miso', 'qning-miso',
