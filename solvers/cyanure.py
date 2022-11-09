@@ -6,6 +6,7 @@ from benchopt import BaseSolver, safe_import_context
 with safe_import_context() as import_ctx:
     import scipy
     import numpy as np
+    import sklearn
     from cyanure import estimators
 
 
