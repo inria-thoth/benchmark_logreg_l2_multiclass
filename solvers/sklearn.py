@@ -45,7 +45,7 @@ class Solver(BaseSolver):
             )
         else:
             self.clf = LogisticRegression(
-                solver=self.solver, C=1 / self.lmbd,
+                solver=self.solver, C=X.shape[0] / self.lmbd,
                 penalty='l2', fit_intercept=False, tol=1e-15
             )
 
