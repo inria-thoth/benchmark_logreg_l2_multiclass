@@ -14,7 +14,7 @@ class Objective(BaseObjective):
     name = "L2 Logistic Regression Multiclass"
 
     parameters = {
-        'lmbd': [1., 0.01]
+        'lmbd': [0.1, 0.01]
     }
 
     def __init__(self, lmbd=.1):
