@@ -33,4 +33,3 @@ class Dataset(BaseDataset):
         data = dict(X=X, y=y, X_test=X_test, y_test=y_test)
 
         return data
-
