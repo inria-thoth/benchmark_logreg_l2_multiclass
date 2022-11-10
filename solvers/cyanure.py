@@ -14,7 +14,7 @@ class Solver(BaseSolver):
     name = 'cyanure_norm'
 
     install_cmd = 'conda'
-    requirements = ['pip:scikit-learn', 'pip:scipy', 'cyanure']
+    requirements = ['pip:scikit-learn', 'pip:scipy', 'pip:cyanure']
 
     parameters = {
         'solver': ['catalyst-miso', 'qning-miso',
