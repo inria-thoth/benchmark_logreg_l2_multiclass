@@ -66,7 +66,7 @@ class Solver(BaseSolver):
 
     def run(self, n_iter):
         self.solver_instance.max_iter = n_iter
-        self.solver_instance.fit(self.X, self.y)
+        self.solver_instance.fit(self.X.astype("float64"), self.y)
 
     def get_result(self):
         return np.squeeze(self.solver_instance.get_weights())
