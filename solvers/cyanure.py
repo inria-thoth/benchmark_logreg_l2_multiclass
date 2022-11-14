@@ -11,10 +11,12 @@ with safe_import_context() as import_ctx:
 
 # 'solver': ['catalyst-miso', 'qning-miso', 'qning-ista',  'auto',  'acc-svrg']
 class Solver(BaseSolver):
-    name = 'cyanure_norm'
+    name = 'cyanure'
 
     install_cmd = 'conda'
     requirements = ['cyanure']
+
+    _solver_strategy = "debug"
 
     parameters = {
         'solver': ['catalyst-miso', 'qning-miso',
