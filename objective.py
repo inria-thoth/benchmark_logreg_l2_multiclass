@@ -1,6 +1,6 @@
 from benchopt import BaseObjective, safe_import_context
 
-with safe_import_context() as ctx:
+with safe_import_context() as ctx:4
     import numpy as np
 
 
@@ -14,7 +14,7 @@ class Objective(BaseObjective):
     name = "L2 Logistic Regression Multiclass"
 
     parameters = {
-        'lmbd': [0.01]
+        'lmbd': [1.0, 0.01]
     }
 
     def __init__(self, lmbd=.1):
