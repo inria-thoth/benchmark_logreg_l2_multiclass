@@ -1,6 +1,6 @@
 from benchopt import BaseObjective, safe_import_context
 
-with safe_import_context() as ctx:4
+with safe_import_context() as ctx:
     import numpy as np
 
 
