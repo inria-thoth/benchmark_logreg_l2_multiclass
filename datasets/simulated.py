@@ -25,10 +25,10 @@ class Dataset(BaseDataset):
         beta = rng.randn(self.n_features)
 
         X = rng.randn(self.n_samples, self.n_features)
-        y = np.sign(X @ beta)
+        y = rng.randint(5, size=self.n_samples)
 
         X_test = rng.randn(self.n_samples, self.n_features)
-        y_test = np.sign(X_test @ beta)
+        y_test = rng.randint(5, size=self.n_samples)
 
         data = dict(X=X, y=y, X_test=X_test, y_test=y_test)
 
