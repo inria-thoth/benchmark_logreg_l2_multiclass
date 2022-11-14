@@ -41,31 +41,6 @@ class Solver(BaseSolver):
                                                      fit_intercept=False,
                                                      **self.solver_parameter)
 
-        self.dataset = "New dataset"
-
-    def compute_relative_optimality_gap(self):
-        min_eval = 100
-        max_dual = -100
-        self.solver_instance.optimization_info_ = np.squeeze(
-            self.solver_instance.optimization_info_)
-        if len(self.solver_instance.optimization_info_.shape) > 1:
-            primal_array = self.solver_instance.optimization_info_[1, ]
-            min_optim = np.min(primal_array)
-            max_optim = np.max(self.solver_instance.optimization_info_[2, ])
-            min_eval = min(min_eval, min_optim)
-            max_dual = max(max_dual, max_optim)
-            info = np.array(np.maximum((primal_array-max_dual)/min_eval, 1e-9))
-
-        else:
-            primal_array = self.solver_instance.optimization_info_[1]
-            min_optim = np.min(primal_array)
-            max_optim = np.max(self.solver_instance.optimization_info_[2])
-            min_eval = min(min_eval, min_optim)
-            max_dual = max(max_dual, max_optim)
-            info = np.array(np.maximum((primal_array-max_dual)/min_eval, 1e-9))
-
-        return info
-
     def run(self, n_iter):
         self.solver_instance.fit(self.X.astype("float64"), self.y)
 
