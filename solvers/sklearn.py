@@ -5,6 +5,7 @@ from benchopt import BaseSolver, safe_import_context
 
 
 with safe_import_context() as import_ctx:
+    import numpy as np
     from sklearn.exceptions import ConvergenceWarning
     from sklearn.linear_model import LogisticRegression
     from sklearn.linear_model import SGDClassifier
@@ -56,4 +57,4 @@ class Solver(BaseSolver):
         self.clf.fit(self.X, self.y)
 
     def get_result(self):
-        return self.clf.coef_
+        return np.transpose(self.clf.coef_)
