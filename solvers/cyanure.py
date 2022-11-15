@@ -45,4 +45,4 @@ class Solver(BaseSolver):
         self.solver_instance.fit(self.X.astype("float64"), self.y)
 
     def get_result(self):
-        return np.squeeze(self.solver_instance.get_weights())
+        return np.squeeze(self.solver_instance.get_weights()).flatten()
