@@ -22,7 +22,6 @@ class Dataset(BaseDataset):
 
     def get_data(self):
         rng = np.random.RandomState(self.random_state)
-        beta = rng.randn(self.n_features)
 
         X = rng.randn(self.n_samples, self.n_features)
         y = rng.randint(5, size=self.n_samples)

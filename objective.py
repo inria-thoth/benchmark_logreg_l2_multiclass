@@ -5,6 +5,7 @@ with safe_import_context() as ctx:
 
 
 def _compute_loss(X, y, lmbd, beta):
+    print(beta.shape)
     y_X_beta = np.expand_dims(y, axis=1) * X.dot(beta)
     l2 = 0.5 * np.dot(beta, np.transpose(beta))
     return np.log1p(np.exp(-y_X_beta)).sum() + lmbd * l2
