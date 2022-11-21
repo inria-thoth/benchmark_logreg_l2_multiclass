@@ -37,5 +37,5 @@ class Objective(BaseObjective):
             )
         return {"value": train_loss, "Test loss": test_loss}
 
-    def to_dict(self):
+    def get_objective(self):
         return dict(X=self.X, y=self.y, lmbd=self.lmbd)
