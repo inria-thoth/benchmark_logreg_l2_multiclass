@@ -15,12 +15,12 @@ class Solver(BaseSolver):
 
     parameters = {"gpu": [False, True]}
 
-    def skip(self, X, y, lmbd):
+    def skip(self, X, y, lmbd, name):
         if self.gpu and get_cuda_version() is None:
             return True, "snapml[gpu=True] needs a GPU to run"
         return False, None
 
-    def set_objective(self, X, y, lmbd):
+    def set_objective(self, X, y, lmbd, name):
         self.X, self.y, self.lmbd = X, y, lmbd
 
         self.clf = LogisticRegression(
@@ -34,7 +34,7 @@ class Solver(BaseSolver):
 
     def run(self, n_iter):
         if n_iter == 0:
-            self.clf.coef_ = np.zeros(self.X.shape[1])
+            self.clf.coef_ = np.zeros((len(np.unique(self.y)), self.X.shape[1]))
             return
 
         self.clf.max_iter = n_iter
