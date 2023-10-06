@@ -14,7 +14,7 @@ class Dataset(BaseDataset):
     is_sparse = False
 
     install_cmd = 'conda'
-    requirements = ['pip:libsvmdata']
+    requirements = ['pip:download']
 
     root_url = "http://pascal.inrialpes.fr/data2/cyanure/datasets"
     x_url = root_url + "/feat_INAT_train.npy"
@@ -36,5 +36,5 @@ class Dataset(BaseDataset):
             self.y = np.load(os.path.join(path_y), allow_pickle=True)
             self.y = np.squeeze(self.y)
 
-        data = dict(X=self.X, y=self.y)
+        data = dict(X=self.X, y=self.y, name=self.name)
         return data

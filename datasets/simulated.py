@@ -29,6 +29,6 @@ class Dataset(BaseDataset):
         X_test = rng.randn(self.n_samples, self.n_features)
         y_test = rng.randint(5, size=self.n_samples)
 
-        data = dict(X=X, y=y, X_test=X_test, y_test=y_test)
+        data = dict(X=X, y=y, name=self.name, X_test=X_test, y_test=y_test)
 
         return data

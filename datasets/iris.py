@@ -6,7 +6,7 @@ with safe_import_context() as import_ctx:
 
 
 class Dataset(BaseDataset):
-    name = "covtype_binary"
+    name = "iris"
 
     install_cmd = 'conda'
     requirements = ['pip:scikit-learn']
@@ -16,4 +16,4 @@ class Dataset(BaseDataset):
         iris = datasets.load_iris()
         X = iris.data[:, :2]  # we only take the first two features.
         y = iris.target
-        return dict(X=X, y=y)
+        return dict(X=X, y=y, name=self.name)

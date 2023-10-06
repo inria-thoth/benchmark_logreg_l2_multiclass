@@ -10,27 +10,29 @@ with safe_import_context() as import_ctx:
 
 
 class Dataset(BaseDataset):
-    name = "dino_places"
+    name = "svhn"
     is_sparse = False
 
-    root_url = "http://pascal.inrialpes.fr/data2/cyanure/datasets"
-    x_url = root_url + "/feat_PLACES_train.npy"
-    y_url = root_url + "/lab_PLACES_train.npy"
+    install_cmd = 'conda'
+    requirements = ['pip:download']
+
+    root_url = "http://pascal.inrialpes.fr/data2/mairal/data"
+    x_url = root_url + "/svhn.npz"
 
     def __init__(self):
         self.X, self.y = None, None
 
     def get_data(self):
+
         if self.X is None:
             root_path = os.path.dirname(benchopt.__file__)
             cachedir = root_path + os.path.sep + "cache"
-            path_X = download(self.x_url,
-                              os.path.join(cachedir, "feat_PLACES_train.npy"))
-            path_y = download(self.y_url,
-                              os.path.join(cachedir, "lab_PLACES_train.npy"))
-            self.X = np.load(os.path.join(path_X), allow_pickle=True)
-            self.y = np.load(os.path.join(path_y), allow_pickle=True)
-            self.y = np.squeeze(self.y)
+            path = download(self.x_url,
+                              os.path.join(cachedir, "svhn.npz"))
+            data = np.load(os.path.join(path), allow_pickle=True)
+            self.y=data['arr_1']
+            self.X=data['arr_0'].astype('float64')
+            self.y=np.squeeze(np.float64(self.y))
 
         data = dict(X=self.X, y=self.y, name=self.name)
         return data
